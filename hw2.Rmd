@@ -1,0 +1,91 @@
+---
+title: "DS202_hw2"
+author: "Tyler Smith"
+date: "February 4, 2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#R Commands 1
+cf1 <- c(24,15)
+ce1 <- (cf1-32)*(5/9)
+ce1
+```
+
+```{r}
+#R Commands 2
+vec200 <- rep(c(3,1),100)
+vec200
+
+```
+
+```{r}
+#R Commands 3
+numPerfect <- 0
+for (i in 1:2001){
+  square <- sqrt(i)
+  if (square == round(square)){
+    numPerfect <- numPerfect + 1
+  }
+}
+numPerfect
+```
+
+```{r}
+library(ggplot2)
+head(mpg)
+mpg1 <- mpg[order(-mpg$hwy),]
+top3 <- head(mpg1,3)
+top3
+```
+
+# Cars and Mileage
+### Problem 1
+The three most fuel efficient cars in the dataset are all Volkswagen, two 1999 new beetles and a 1999 jetta tops the data with 44 miles per gallon on the highway. The top two cars on the list are manual, with the second new beetle on the list being the highest-rated automatic vehicle.
+
+```{r}
+mpg2 <- mpg[mpg$class == "compact",]
+numCompact <- nrow(mpg2)
+numCompact
+```
+
+### Problem 2
+There are 47 compact models in the dataset.
+
+```{r}
+plot(mpg$hwy,mpg$cty,data=mpg)
+```
+
+### Problem 3
+
+Above is the plot of the two variables. These variables appear to have a strong positive, linear relationship. This follows since we expect the miles per gallon in the city and on the highway to have correlated results. From the error message, some of the values do not appear to be graphical parameters, which could imply the dataset has errors with these two variables for some reason, which are then skipped over in the plot.
+
+```{r}
+library(ggplot2)
+c1999 <- mpg[mpg$year == 1999,]
+c2008 <- mpg[mpg$year == 2008,]
+c(mean(c1999$cty),mean(c2008$cty))
+c(mean(c1999$hwy),mean(c2008$hwy))
+c(median(c1999$cty),median(c2008$cty))
+c(max(c1999$hwy),max(c2008$hwy))
+c(max(c1999$cty),max(c2008$cty))
+c(min(c1999$hwy),min(c2008$hwy))
+c(min(c1999$cty),min(c2008$cty))
+par(mfrow=c(1,2))
+hist(c1999$hwy,main="1999 Highway MPG")
+hist(c2008$hwy,main="2008  Highway MPG")
+
+```
+
+### Problem 4
+The summary statistics above did not reveal much difference between cars in 1999 and 2008. The means are virtually the same for both city and highway miles per gallon. None of the other statistics stand out, save  for perhaps the maximums that are separated by seven miles in favor of 1999.
+
+The histograms do reveal some difference in the years. Even though the mean is similar, it does appear that there are more cars in the 30-40 miles per gallon range in 2008 than 1999, but there are cars in the 10-15 range in 2008 while 1999 has none. The middle portion, between 15 and 30 mile per gallon appears unchanged.
+
